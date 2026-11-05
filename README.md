@@ -164,6 +164,26 @@ All tool names are prefixed `trilium_`.
 - **Deleting:** `delete_note` removes a note from every location; `delete_branch` removes it from one (and deletes the note if it was the last). `undelete_note` can restore recent deletions.
 - **Not exposed:** `/auth/login` and `/auth/logout`. The server uses token auth, and logout would revoke the token it is using.
 
+## Skills
+
+`skills/` holds three Claude Code skills that teach the agent how to use the tools well. The most important one is the note-type guide, which says which `type` and `mime` to use so content is stored correctly (code snippets as `code` notes with a language mime, Markdown as `code` + `text/x-markdown`, diagrams as `mermaid`, text notes as HTML).
+
+| Skill | Teaches |
+|---|---|
+| `trilium-note-types` | Note type / mime / content format, plus snapshot-before-overwrite and duplicate checks. Includes a mime reference. |
+| `trilium-search` | Trilium's search language and the `trilium_search_notes` parameters |
+| `trilium-workflows` | Journal and inbox, move vs clone vs delete, attributes, attachments, revisions, undelete, export/import, backup |
+
+Install (the `bunx` install does not include them, so copy or link them once):
+
+```bash
+git clone https://github.com/btafoya/triliumnotes-mcp-sserver.git
+mkdir -p ~/.claude/skills
+ln -s "$PWD"/triliumnotes-mcp-sserver/skills/* ~/.claude/skills/    # or cp -r
+```
+
+For one project only, put them in that project's `.claude/skills/` instead.
+
 ## Safety
 
 Write tools can overwrite or delete data. Destructive tools set `destructiveHint: true`, and Claude Code prompts for permission according to your settings. Consider calling `create_revision` before `set_note_content`, and `create_backup` before bulk changes.

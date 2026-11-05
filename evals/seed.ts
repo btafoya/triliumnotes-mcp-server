@@ -91,6 +91,9 @@ async function seed() {
     await api("POST", "/create-note", {
       noteId: n.id, parentNoteId: n.parent, title: n.title, type: n.type ?? "text", mime: n.mime, content: n.content ?? ""
     });
+  }
+  // Attributes second: relations must point at notes that already exist.
+  for (const n of NOTES) {
     for (const [type, name, value] of n.attrs ?? []) {
       await api("POST", "/attributes", { noteId: n.id, type, name, value: value ?? "" });
     }

@@ -20,7 +20,9 @@ const json = (v: unknown) => text(v === undefined ? "OK" : JSON.stringify(v, nul
 
 // ---- shared field schemas ----
 const id = (what: string) => z.string().regex(/^[a-zA-Z0-9_]{4,32}$/).describe(`${what} (4-32 chars of [a-zA-Z0-9_], e.g. 'evnnmvHTCgIn'; 'root' is the root note)`);
-const NOTE_TYPES = ["text", "code", "file", "image", "search", "book", "relationMap", "render", "noteMap", "mermaid", "webView", "shortcut", "doc", "contentWidget", "launcher"] as const;
+// User-facing types accepted by Trilium's ETAPI (the OpenAPI enum is incomplete). Internal types launcher/doc/contentWidget are excluded.
+// Markdown is not a type: it is type=code with mime=text/x-markdown.
+const NOTE_TYPES = ["text", "code", "file", "image", "search", "book", "relationMap", "render", "noteMap", "mermaid", "webView", "canvas", "mindMap", "spreadsheet", "llmChat"] as const;
 const encoding = z.enum(["text", "base64"]).default("text").describe("'text' for plain/HTML/markdown content, 'base64' for binary data");
 
 const isTextual = (ct: string) => /^text\/|json|xml|javascript|svg|yaml|html/i.test(ct);
@@ -68,14 +70,14 @@ export function registerTools(server: McpServer): void {
   // ============ Notes ============
 
   def("create_note", "Create Note",
-    `Create a note under a parent and return {note, branch}. Use trilium_search_notes first to find parentNoteId ('root' works).
-Text notes take HTML content; code notes take raw text and need 'mime' (e.g. 'application/json', 'text/x-python').`,
+    `Create a note under a parent and return {note, branch}. Use trilium_search_notes first to find parentNoteId ('root' works) and to check that a note with the same title does not already exist there.
+The type decides how 'content' must be formatted: text = HTML; code = raw text, with 'mime' naming the language (e.g. 'text/x-python', 'application/json'; Markdown is type=code + mime 'text/x-markdown'); mermaid = diagram source; canvas/mindMap/spreadsheet = JSON. If mime is omitted a per-type default is used (text -> text/html, code -> text/plain). image notes need an 'image/*' mime.`,
     "create",
     z.strictObject({
       parentNoteId: id("Parent note ID"),
       title: z.string().min(1).describe("Note title"),
-      type: z.enum(["text", "code", "file", "image", "search", "book", "relationMap", "render"]).default("text"),
-      mime: z.string().optional().describe("Required for type code/file/image, e.g. 'text/x-python'"),
+      type: z.enum(NOTE_TYPES).default("text"),
+      mime: z.string().optional().describe("Language/format for code notes, e.g. 'text/x-python', 'text/x-markdown'; 'image/png' for images. Defaults per type if omitted."),
       content: z.string().default("").describe("Initial content (HTML for text notes)"),
       notePosition: z.number().int().optional().describe("Order in parent: 10, 20, 30...; use 5 for first, 1000000 for last"),
       prefix: z.string().optional().describe("Branch-specific title prefix"),
@@ -175,7 +177,7 @@ Archived notes are excluded unless includeArchivedNotes=true.`,
   );
 
   def("set_note_content", "Set Note Content",
-    "REPLACE the entire content of a note (previous content is lost unless a revision exists; call trilium_create_revision first if you need a snapshot). Text notes take HTML, code notes raw text.",
+    "REPLACE the entire content of a note. Call trilium_create_revision on the note first so the old content is recoverable (skip only for a note you just created). Read the current content before editing so unchanged parts are preserved. Text notes take HTML, code notes raw text.",
     "update",
     z.strictObject({ noteId: id("Note ID"), content: z.string().describe("New content"), encoding }),
     async (a, signal) => json(await etapiJson("PUT", `/notes/${a.noteId}/content`, { ...body(a.content, a.encoding), signal }))
