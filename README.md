@@ -1,4 +1,23 @@
-# trilium-mcp-server
+<p align="center">
+  <img src="assets/logo.png" alt="TriliumNotes MCP Server logo" width="220">
+</p>
+
+<h1 align="center">trilium-mcp-server</h1>
+
+<p align="center">
+  Let Claude Code and other MCP clients search, read and organize your Trilium Notes.
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/btafoya/triliumnotes-mcp-sserver?color=blue"></a>
+  <a href="https://modelcontextprotocol.io"><img alt="MCP server" src="https://img.shields.io/badge/MCP-server-8A2BE2"></a>
+  <img alt="40 tools" src="https://img.shields.io/badge/tools-40-brightgreen">
+  <a href="https://docs.triliumnotes.org/user-guide/advanced-usage/etapi/api-reference"><img alt="Trilium ETAPI" src="https://img.shields.io/badge/Trilium-ETAPI-orange"></a>
+  <a href="https://code.claude.com/docs/en/mcp"><img alt="Claude Code ready" src="https://img.shields.io/badge/Claude%20Code-ready-d97757"></a>
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white">
+  <a href="https://bun.sh"><img alt="Bun" src="https://img.shields.io/badge/runtime-Bun-000000?logo=bun&logoColor=white"></a>
+  <a href="https://github.com/btafoya/triliumnotes-mcp-sserver/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/btafoya/triliumnotes-mcp-sserver"></a>
+</p>
 
 A [Model Context Protocol](https://modelcontextprotocol.io) server for [Trilium Notes](https://github.com/TriliumNext/Trilium), built on the [ETAPI](https://docs.triliumnotes.org/user-guide/advanced-usage/etapi/api-reference). It lets Claude Code (or any MCP client) search, read, create and organize notes in your Trilium instance.
 
