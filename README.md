@@ -27,9 +27,10 @@ bun install
 The package's `bin` points at the TypeScript source (`src/index.ts`, `#!/usr/bin/env bun`), and bun runs TypeScript natively, so there is nothing to compile:
 
 ```bash
-claude mcp add --transport stdio --scope user \
+claude mcp add \
   --env TRILIUM_URL=http://localhost:8080 \
   --env TRILIUM_ETAPI_TOKEN=<your-token> \
+  --transport stdio --scope user \
   trilium -- bunx github:btafoya/triliumnotes-mcp-sserver
 ```
 
@@ -40,14 +41,15 @@ bun supports `github:user/repo` specifiers for packages ([docs](https://bun.sh/d
 Add it with the Claude Code CLI ([docs](https://code.claude.com/docs/en/mcp)):
 
 ```bash
-claude mcp add --transport stdio --scope user \
+claude mcp add \
   --env TRILIUM_URL=http://localhost:8080 \
   --env TRILIUM_ETAPI_TOKEN=<your-token> \
+  --transport stdio --scope user \
   trilium -- bun /absolute/path/to/triliumnotes-mcp-sserver/src/index.ts
 ```
 
 - `--` separates Claude's options from the server command; everything after it runs the server.
-- Put at least one other option (here `--transport stdio`) between `--env` and the server name, or the CLI reads the name as another env pair.
+- `--env` is variadic: it keeps consuming arguments until the next option or `--`. Always put another option (here `--transport stdio --scope user`) after the last `--env` and before the server name. Otherwise the CLI reads the name as another env pair and fails with `Invalid environment variable format: trilium`.
 - Short forms: `-t` for `--transport`, `-s` for `--scope`, `-e` for `--env`. Drop `--scope user` for the default `local` scope.
 
 Same thing as JSON:
