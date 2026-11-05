@@ -26,7 +26,7 @@ export class EtapiError extends Error {
   }
 
   static hint(status: number, code: string | undefined, detail: string): string {
-    const base = `Trilium ETAPI ${status}${code ? ` ${code}` : ""}: ${detail}`;
+    const base = `Trilium ETAPI ${status}${code ? ` ${code}` : ""}: ${detail.replace(/\.+$/, "")}`;
     switch (status) {
       case 401:
         return `${base}. Check TRILIUM_ETAPI_TOKEN (Options -> ETAPI).`;
