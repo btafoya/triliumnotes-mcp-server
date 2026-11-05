@@ -9,14 +9,14 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/btafoya/triliumnotes-mcp-sserver?color=blue"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/btafoya/triliumnotes-mcp-server?color=blue"></a>
   <a href="https://modelcontextprotocol.io"><img alt="MCP server" src="https://img.shields.io/badge/MCP-server-8A2BE2"></a>
   <img alt="40 tools" src="https://img.shields.io/badge/tools-40-brightgreen">
   <a href="https://docs.triliumnotes.org/user-guide/advanced-usage/etapi/api-reference"><img alt="Trilium ETAPI" src="https://img.shields.io/badge/Trilium-ETAPI-orange"></a>
   <a href="https://code.claude.com/docs/en/mcp"><img alt="Claude Code ready" src="https://img.shields.io/badge/Claude%20Code-ready-d97757"></a>
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white">
   <a href="https://bun.sh"><img alt="Bun" src="https://img.shields.io/badge/runtime-Bun-000000?logo=bun&logoColor=white"></a>
-  <a href="https://github.com/btafoya/triliumnotes-mcp-sserver/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/btafoya/triliumnotes-mcp-sserver"></a>
+  <a href="https://github.com/btafoya/triliumnotes-mcp-server/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/btafoya/triliumnotes-mcp-server"></a>
 </p>
 
 A [Model Context Protocol](https://modelcontextprotocol.io) server for [Trilium Notes](https://github.com/TriliumNext/Trilium), built on the [ETAPI](https://docs.triliumnotes.org/user-guide/advanced-usage/etapi/api-reference). It lets Claude Code (or any MCP client) search, read, create and organize notes in your Trilium instance.
@@ -34,8 +34,8 @@ A [Model Context Protocol](https://modelcontextprotocol.io) server for [Trilium 
 ## Install
 
 ```bash
-git clone https://github.com/btafoya/triliumnotes-mcp-sserver.git
-cd triliumnotes-mcp-sserver
+git clone https://github.com/btafoya/triliumnotes-mcp-server.git
+cd triliumnotes-mcp-server
 bun install
 ```
 
@@ -50,7 +50,7 @@ claude mcp add \
   --env TRILIUM_URL=http://localhost:8080 \
   --env TRILIUM_ETAPI_TOKEN=<your-token> \
   --transport stdio --scope user \
-  trilium -- bunx github:btafoya/triliumnotes-mcp-sserver
+  trilium -- bunx github:btafoya/triliumnotes-mcp-server
 ```
 
 bun supports `github:user/repo` specifiers for packages ([docs](https://bun.sh/docs/pm/cli/install)) and `bunx` runs a package's `bin`. Requires [bun](https://bun.sh) on your `PATH`.
@@ -64,7 +64,7 @@ claude mcp add \
   --env TRILIUM_URL=http://localhost:8080 \
   --env TRILIUM_ETAPI_TOKEN=<your-token> \
   --transport stdio --scope user \
-  trilium -- bun /absolute/path/to/triliumnotes-mcp-sserver/src/index.ts
+  trilium -- bun /absolute/path/to/triliumnotes-mcp-server/src/index.ts
 ```
 
 - `--` separates Claude's options from the server command; everything after it runs the server.
@@ -74,7 +74,7 @@ claude mcp add \
 Same thing as JSON:
 
 ```bash
-claude mcp add-json --scope user trilium '{"type":"stdio","command":"bun","args":["/absolute/path/to/triliumnotes-mcp-sserver/src/index.ts"],"env":{"TRILIUM_URL":"http://localhost:8080","TRILIUM_ETAPI_TOKEN":"<your-token>"}}'
+claude mcp add-json --scope user trilium '{"type":"stdio","command":"bun","args":["/absolute/path/to/triliumnotes-mcp-server/src/index.ts"],"env":{"TRILIUM_URL":"http://localhost:8080","TRILIUM_ETAPI_TOKEN":"<your-token>"}}'
 ```
 
 Then confirm it connected:
@@ -100,7 +100,7 @@ For a shared `.mcp.json`, reference environment variables instead of the token:
   "mcpServers": {
     "trilium": {
       "command": "bunx",
-      "args": ["github:btafoya/triliumnotes-mcp-sserver"],
+      "args": ["github:btafoya/triliumnotes-mcp-server"],
       "env": {
         "TRILIUM_URL": "${TRILIUM_URL:-http://localhost:8080}",
         "TRILIUM_ETAPI_TOKEN": "${TRILIUM_ETAPI_TOKEN}"
@@ -196,9 +196,9 @@ All tool names are prefixed `trilium_`.
 Install (the `bunx` install does not include them, so copy or link them once):
 
 ```bash
-git clone https://github.com/btafoya/triliumnotes-mcp-sserver.git
+git clone https://github.com/btafoya/triliumnotes-mcp-server.git
 mkdir -p ~/.claude/skills
-ln -s "$PWD"/triliumnotes-mcp-sserver/skills/* ~/.claude/skills/    # or cp -r
+ln -s "$PWD"/triliumnotes-mcp-server/skills/* ~/.claude/skills/    # or cp -r
 ```
 
 For one project only, put them in that project's `.claude/skills/` instead.

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "MCP server for the Trilium Notes ETAPI",
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/btafoya/triliumnotes-mcp-sserver.git" },
+  "repository": { "type": "git", "url": "git+https://github.com/btafoya/triliumnotes-mcp-server.git" },
   "type": "module",
   "bin": { "trilium-mcp-server": "src/index.ts" },
   "files": ["src"],
