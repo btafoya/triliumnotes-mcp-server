@@ -177,6 +177,17 @@ bun run smoke     # self-check against a built-in mock ETAPI server
 
 To run the read-only smoke checks against a real instance, set `TRILIUM_URL` and `TRILIUM_ETAPI_TOKEN` first.
 
+### Evaluations
+
+`evals/trilium_eval.xml` holds 10 question/answer pairs that a model should answer using the `trilium_*` tools. They target a fixed sandbox subtree that `evals/seed.ts` creates under `root`:
+
+```bash
+TRILIUM_URL=... TRILIUM_ETAPI_TOKEN=... bun evals/seed.ts          # create "Eval Sandbox" (23 notes)
+TRILIUM_URL=... TRILIUM_ETAPI_TOKEN=... bun evals/seed.ts --clean  # delete it
+```
+
+Run the seed against a throwaway or test instance. It writes only the `evalRoot` subtree and refuses to run if `evalRoot` already exists.
+
 Layout:
 
 ```

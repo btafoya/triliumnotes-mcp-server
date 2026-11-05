@@ -1,0 +1,42 @@
+<evaluation>
+  <qa_pair>
+    <question>In my Trilium notes, among the projects whose status label is "active", which one has the largest budget, and in which city does that project's owner (the note linked by its "owner" relation) live? Answer with the city only.</question>
+    <answer>Lisbon</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Across all projects owned (via the "owner" relation) by Maria Santos, what is the total of the "estimateDays" labels on the tasks whose status is not "done"? Answer with the number only.</question>
+    <answer>45</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>One project in my Trilium notes has status "paused". After subtracting the budget already spent (as recorded in the meeting note about its pause) from its total budget, how many USD remain? Answer with the number only, no separators.</question>
+    <answer>5800</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>The code note "retry.py" has saved revisions. Add the earliest saved revision's MAX_RETRIES value to the current MAX_RETRIES value. What is the sum?</question>
+    <answer>10</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Among projects owned by someone located in Lisbon, take the one with priority label 2. Which database (name and version) did the kickoff meeting decide to use for it?</question>
+    <answer>PostgreSQL 16</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>The Atlas risks note has a CSV attachment. Who owns the only risk in it rated "high" severity? Answer with the full name.</question>
+    <answer>Maria Santos</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>The note titled "Glossary" appears in more than one place in the note tree. Name the two folders (parent notes) that contain it, in alphabetical order, separated by a comma and a space.</question>
+    <answer>People, Reference</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Find the project with the lowest priority number (priority label). How many of its tasks have status "done"? Answer with the number only.</question>
+    <answer>1</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>One task in my Trilium notes has an estimate of 20 days. What is the name of the team of the person who owns the project containing that task?</question>
+    <answer>Platform</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What is the total budget, in USD, of all projects whose status label is "active"? Answer with the number only, no separators.</question>
+    <answer>120500</answer>
+  </qa_pair>
+</evaluation>
